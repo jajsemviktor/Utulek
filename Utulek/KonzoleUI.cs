@@ -4,6 +4,8 @@ namespace Utulek
 {
     internal class KonzoleUI
     {
+        private readonly Evidence _evidence = new Evidence();
+
         public void Spustit()
         {
             int volba;
@@ -61,23 +63,95 @@ namespace Utulek
 
         private void PridatZvire()
         {
-            Console.WriteLine(">>> PridatZvire() zatim neni implementovano");
+            Console.WriteLine("=== Pøidat zvíøe ===");
+            Console.Write("Jméno: ");
+            var name = Console.ReadLine();
+
+            Console.Write("Druh: ");
+            var druh = Console.ReadLine();
+
+            int vek;
+            Console.Write("Vìk: ");
+            while (!int.TryParse(Console.ReadLine(), out vek) || vek < 0)
+            {
+                Console.Write("Neplatný vìk. Zadej èíslo (>= 0): ");
+            }
+
+            Console.Write("Pohlaví: ");
+            var pohlavi = Console.ReadLine();
+
+            var zvire = _evidence.Add(name, druh, vek, pohlavi);
+            Console.WriteLine($"Pøidáno zvíøe s ID {zvire.ID}.");
         }
 
         private void VypsatZvirata()
         {
-            Console.WriteLine(">>> VypsatZvirata() zatim neni implementovano");
+            Console.WriteLine("=== Seznam zvíøat ===");
+            var zvirata = _evidence.GetAll();
+
+            bool any = false;
+            foreach (var z in zvirata)
+            {
+                any = true;
+                VypisZvire(z);
+            }
+
+            if (!any)
+            {
+                Console.WriteLine("Žádná zvíøata v evidenci.");
+            }
         }
 
         private void VyhledatZvire()
         {
-            Console.WriteLine(">>> VyhledatZvire() zatim neni implementovano");
+            Console.WriteLine("=== Vyhledat / filtrovat ===");
+            Console.Write("Zadej èást jména (enter = všechna): ");
+            var fragment = Console.ReadLine();
+
+            var vysledky = _evidence.FindByName(fragment);
+            bool any = false;
+            foreach (var z in vysledky)
+            {
+                any = true;
+                VypisZvire(z);
+            }
+
+            if (!any)
+            {
+                Console.WriteLine("Nic nenalezeno.");
+            }
         }
 
         private void OznacitAdopci()
         {
-            Console.WriteLine(">>> OznacitAdopci() zatim neni implementovano");
+            Console.WriteLine("=== Oznaèit adopci ===");
+            Console.Write("Zadej ID zvíøete: ");
+            if (!int.TryParse(Console.ReadLine(), out var id))
+            {
+                Console.WriteLine("Neplatné ID.");
+                return;
+            }
+
+            var z = _evidence.GetById(id);
+            if (z == null)
+            {
+                Console.WriteLine("Zvíøe s tímto ID nebylo nalezeno.");
+                return;
+            }
+
+            if (string.Equals(z.adoptovano, "ano", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("Toto zvíøe je již adoptováno.");
+                return;
+            }
+
+            var ok = _evidence.Adopt(id);
+            Console.WriteLine(ok ? "Zvíøe bylo oznaèeno jako adoptované." : "Nepodaøilo se oznaèit adopci.");
         }
 
+        private void VypisZvire(Zvire z)
+        {
+            Console.WriteLine($"ID: {z.ID} | Jméno: {z.Name} | Druh: {z.druh} | Vìk: {z.vek} | Pohlaví: {z.pohlavi} | Adoptováno: {z.adoptovano}");
+        }
     }
 }
