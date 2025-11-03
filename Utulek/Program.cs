@@ -11,9 +11,7 @@ namespace Utulek
         static void Main(string[] args)
         {
 
-            var ui = new KonzoleUI();
-
-            ui.Spustit();
+            Console.WriteLine("Vitejte v Utulku pro zvirata!");
         }
     }
 }
