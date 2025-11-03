@@ -6,32 +6,32 @@ namespace Utulek
 {
     internal class Evidence
     {
-        private readonly List<Zvire> _zvirata;
-        private int _nextId;
+        private readonly List<Zvire> zvirata;
+        private int nextId;
 
         public Evidence()
         {
-            _zvirata = new List<Zvire>();
-            _nextId = 1;
+            zvirata = new List<Zvire>();
+            nextId = 1;
         }
 
         // Vrací kopii seznamu zvířat
         public IEnumerable<Zvire> GetAll()
         {
-            return _zvirata.ToList();
+            return zvirata.ToList();
         }
 
         // Najde podle ID
         public Zvire GetById(int id)
         {
-            return _zvirata.FirstOrDefault(z => z.ID == id);
+            return zvirata.FirstOrDefault(z => z.ID == id);
         }
 
         // Přidá nové zvíře a vrátí ho (s přiřazeným ID)
         public Zvire Add(string name, string druh, int vek, string pohlavi)
         {
-            var zvire = new Zvire(_nextId++, name ?? string.Empty, druh ?? string.Empty, vek, pohlavi ?? string.Empty, "ne");
-            _zvirata.Add(zvire);
+            var zvire = new Zvire(nextId++, name ?? string.Empty, druh ?? string.Empty, vek, pohlavi ?? string.Empty, "ne");
+            zvirata.Add(zvire);
             return zvire;
         }
 
@@ -55,7 +55,7 @@ namespace Utulek
         {
             var zvire = GetById(id);
             if (zvire == null) return false;
-            return _zvirata.Remove(zvire);
+            return zvirata.Remove(zvire);
         }
 
         // Označí zvíře jako adoptované ("ano"), vrací true pokud existovalo
@@ -71,14 +71,15 @@ namespace Utulek
         public IEnumerable<Zvire> FindByName(string nameFragment)
         {
             if (string.IsNullOrWhiteSpace(nameFragment)) return GetAll();
-            return _zvirata.Where(z => z.Name != null && z.Name.IndexOf(nameFragment, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+            return zvirata.Where(z => z.Name != null && z.Name.IndexOf(nameFragment, 
+                StringComparison.OrdinalIgnoreCase) >= 0).ToList();
         }
 
         // Obecné filtrování
         public IEnumerable<Zvire> Filter(Func<Zvire, bool> predicate)
         {
             if (predicate == null) return GetAll();
-            return _zvirata.Where(predicate).ToList();
+            return zvirata.Where(predicate).ToList();
         }
     }
 }
