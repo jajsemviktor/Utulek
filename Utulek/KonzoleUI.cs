@@ -124,7 +124,9 @@ namespace Utulek
 
         private void OznacitAdopci()
         {
+            VypsatZvirata();
             Console.WriteLine("=== Oznaèit adopci ===");
+
             Console.Write("Zadej ID zvíøete: ");
             if (!int.TryParse(Console.ReadLine(), out var id))
             {
