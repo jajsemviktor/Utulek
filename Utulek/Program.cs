@@ -10,6 +10,7 @@ namespace Utulek
     {
         static void Main(string[] args)
         {
+            // tohle je nejduležitější část NEMAZAT!!!!
             var ui = new KonzoleUI();
 
             ui.Spustit();
