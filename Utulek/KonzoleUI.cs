@@ -52,12 +52,7 @@ namespace Utulek
         private void ZobrazitMenu()
         {
             Console.Clear();
-            Console.WriteLine("===== UTULEK PRO ZVIRATA =====");
-            Console.WriteLine("1) Pridat zvire");
-            Console.WriteLine("2) Vypsat vsechna zvirata");
-            Console.WriteLine("3) Vyhledat / filtrovat");
-            Console.WriteLine("4) Oznacit adopci");
-            Console.WriteLine("0) Konec");
+            Console.WriteLine("===== UTULEK PRO ZVIRATA ===== \n1) Pridat zvire \n2) Vypsat vsechna zvirata \n3) Vyhledat / filtrovat \n4) Oznacit adopci \n0) Konec");
             Console.Write("Volba: ");
         }
 
