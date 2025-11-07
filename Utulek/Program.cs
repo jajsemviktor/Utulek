@@ -14,6 +14,7 @@ namespace Utulek
             var ui = new KonzoleUI();
 
             ui.Spustit();
+
         }
     }
 }
