@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Utulek
 {
@@ -32,6 +33,9 @@ namespace Utulek
                     case 4:
                         OznacitAdopci();
                         break;
+                    case 5:
+                        ZapisDoSouboru();
+                        break;
                     case 0:
                         Console.WriteLine("Konec programu.");
                         break;
@@ -52,7 +56,7 @@ namespace Utulek
         private void ZobrazitMenu()
         {
             Console.Clear();
-            Console.WriteLine("===== UTULEK PRO ZVIRATA ===== \n1) Pridat zvire \n2) Vypsat vsechna zvirata \n3) Vyhledat / filtrovat \n4) Oznacit adopci \n0) Konec");
+            Console.WriteLine("===== UTULEK PRO ZVIRATA ===== \n1) Pridat zvire \n2) Vypsat vsechna zvirata \n3) Vyhledat / filtrovat \n4) Oznacit adopci\n5) Zapsat do souboru \n0) Konec");
             Console.Write("Volba: ");
         }
 
@@ -149,6 +153,26 @@ namespace Utulek
         private void VypisZvire(Zvire z)
         {
             Console.WriteLine($"ID: {z.ID} | Jméno: {z.Name} | Druh: {z.druh} | Vìk: {z.vek} | Pohlaví: {z.pohlavi} | Adoptováno: {z.adoptovano}");
+        }
+
+        private void ZapisDoSouboru()
+        {
+            using (StreamWriter sw = new StreamWriter("Utulek.txt"))
+            {
+                try
+                {
+                    foreach (Zvire z in _evidence.GetAll())
+                    {
+                        sw.WriteLine($"ID: {z.ID} | JMÉNO: {z.Name} | DRUH: {z.druh} | VÌK: {z.vek} | POHLAVÍ: {z.pohlavi} | ADOPTOVANO: {z.adoptovano}");
+                    }
+                    sw.Flush();
+                    Console.WriteLine("Zápis byl uložen.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
     }
 }
