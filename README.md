@@ -3,7 +3,7 @@ projekt eviduje zvířata v útulku a umožňuje práci s jejich záznamy
 funkce:
 
 1. přidání zvířete
-  - ukládané údaje: id (automaticky generované), jméno, druh, věk, pohlaví
+  - ukládané údaje: id, jméno, druh, věk, pohlaví
 
 2. výpis všech zvířat v tabulce
 
