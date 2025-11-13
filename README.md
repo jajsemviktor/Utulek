@@ -13,3 +13,10 @@ funkce:
 5. označení adopce
 
 data zvířat jsou ukládána v seznamu
+
+
+Rozdělení rolí
+Daniel Knieradl -
+Viktor Tauwinkel - 
+Adam Zeman - 
+Daniel Pospíšil - 
